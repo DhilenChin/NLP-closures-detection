@@ -1,0 +1,16 @@
+spacy==3.0.6
+spacy-transformers==1.0.3
+grpcio==1.39.0
+dateparser==1.0.0
+pytz==2020.1
+numpy
+requests==2.24.0
+haversine==2.3.1
+matplotlib
+sklearn
+nltk
+tweepy==3.10.0
+google-cloud-storage==1.42.0
+protobuf==3.13.0
+click==7.1.2
+pandas

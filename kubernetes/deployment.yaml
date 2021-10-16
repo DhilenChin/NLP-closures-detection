@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: closures-detection
+  namespace: ${KUBERNETES_NAMESPACE:?} 
+  labels: &labels
+    app: closures-detection
+    role: closures-detection
+    tier: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels: *labels
+  template:
+    metadata:
+      labels: *labels
+    spec:
+      containers:
+      - name: closures-detection
+        image: ${DOCKER_IMAGE_FULL:?}
+        imagePullPolicy: Always
+        volumeMounts:
+          - name: secret
+            mountPath: "/var/secret"
+            readOnly: true
+        ports:
+        - containerPort: 5000
+        args:
+        - --address=junction-coordinates:8080
+        - --timezone=Europe/London
+        - --model_bucket_name=closures-detection-nlp-ner-model
+        - --print_closure_information=True
+        - --include_SVM=False
+        - --list_of_queries=['road', 'closures','traffic', 'blocked', 'closed']
+        env:
+        - name: TWITTER_AUTH
+          value: /var/secret/twitter_auth.json
+        - name: GOOGLE_APPLICATION_CREDENTIALS
+          value: /var/secret/gcloud.serviceaccount.json
+        resources:
+          limits: 
+            cpu: "1"
+            memory: "4G"
+      volumes:
+      - name: secret
+        secret:
+          secretName: closures-detection

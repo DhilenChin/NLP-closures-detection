@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nlp-closures-detection
+  namespace: ${KUBERNETES_NAMESPACE:?}      
+spec:
+  selector:
+    app: closures-detection
+  ports:
+  - protocol: "TCP"
+    port: 6000
+    targetPort: 5000
+  type: ClusterIP

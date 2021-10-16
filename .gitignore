@@ -1,0 +1,14 @@
+keys_and_secret.txt
+playground.py
+__pycache__
+.vscode
+*.pbf
+*.pem
+*.key
+*.crt
+nlp_model
+coor.csv
+response.txt
+closures.txt
+playground2.py
+twitter_auth.json
